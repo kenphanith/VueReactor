@@ -1,0 +1,27 @@
+{
+  "name": "vuereactor",
+  "version": "1.0.0",
+  "description": "a unidirectional data flow integration for Vue application==",
+  "main": "index.js",
+  "scripts": {
+    "dev": "rollup -c rollup.config.js -w",
+    "build": "rollup -c rollup.config.js",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kenphanith/VueReactor.git"
+  },
+  "author": "kenphanith",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kenphanith/VueReactor/issues"
+  },
+  "homepage": "https://github.com/kenphanith/VueReactor#readme",
+  "dependencies": {
+    "gulp": "^4.0.2",
+    "rollup-plugin-alias": "^2.2.0",
+    "rollup-plugin-buble": "^0.19.8",
+    "rxjs": "^6.6.3"
+  }
+}
