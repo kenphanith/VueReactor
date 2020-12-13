@@ -1,0 +1,21 @@
+<!-- this demo require a browser that natively support ES2015 -->
+<script src="https://unpkg.com/rxjs/bundles/rxjs.umd.js"></script>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="../dist/vue-reactor.js"></script>
+
+<div id="app">
+  <div>{{ count }}</div>
+  <button>+</button>
+  <button>-</button>
+</div>
+
+<script>
+  new Vue({
+    el: '#app',
+    data () {
+      return {
+        count: 0
+      }
+    }
+  })
+</script>
