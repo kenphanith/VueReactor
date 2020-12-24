@@ -2,20 +2,49 @@
 <script src="https://unpkg.com/rxjs/bundles/rxjs.umd.js"></script>
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <script src="../dist/vue-reactor.js"></script>
+<script src="../dist/vue-reactor-operators.js"></script>
 
 <div id="app">
-  <div>{{ count }}</div>
-  <button>+</button>
-  <button>-</button>
+  <div ref="label"></div>
+  <button ref="increment">+</button>
+  <button ref="decrement">-</button>
 </div>
 
 <script>
+  const { map, tap } = rxjs.operators
+  const { bind } = VueReactorOperator
+
   new Vue({
     el: '#app',
-    data () {
-      return {
-        count: 0
+    mounted () {
+      this.$VueReactor.increment.rx().click().pipe(
+        map(res => this.$actionType.increment()),
+        tap(res => console.log(res)),
+        bind(res => this.$action)
+      ) // TO-DO: call bind method here, probably much more cleaner
+    },
+    mutation (action, context) {
+      switch (action) {
+        case context.$actionType.increment():
+          return context.$mutate(context.$mutationType.increment)
+        
+        case context.$actionType.decrement():
+          return context.$mutate(context.$mutationType.decrement)
+        
+        default: return empty()
       }
+    },
+    reduce (state, mutation, context) {},
+    actionType: [
+      'increment',
+      'decrement'
+    ],
+    mutationType: [
+      'increment',
+      'decrement'
+    ],
+    state: {
+      counter: 0
     }
   })
 </script>

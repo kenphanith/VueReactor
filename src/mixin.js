@@ -1,6 +1,5 @@
-import { Subject, Subscription, of, BehaviorSubject, ReplaySubject } from 'rxjs'
-import { switchMap, tap, map } from 'rxjs/operators'
-import VueReactor from '.'
+import { Subject, of, BehaviorSubject } from 'rxjs'
+import { switchMap, map } from 'rxjs/operators'
 
 export default {
   beforeCreate () {
@@ -40,6 +39,7 @@ export default {
   created () {
     const vm = this
 
+    vm.$VueReactor = {}
     vm.$action = new Subject()
     vm.$state = new BehaviorSubject()
     vm.$mutate = function (type, ...params) {
@@ -61,7 +61,7 @@ export default {
     //  a Subject or a BehaviourSubject (special because they can be either an observer or an observable)
     Object.keys(vm.$refs).forEach(ref => {
       const el = vm.$refs[ref]
-      VueReactor.el[ref] = el
+      vm.$VueReactor[ref] = el
     })
 
     // this is where we can register state values
