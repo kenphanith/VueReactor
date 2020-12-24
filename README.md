@@ -1,15 +1,13 @@
-# VueReactor
+# VueReactor (This repository is WIP)
 
 A libary that give vue application the unidirectional data flow architecture
-
-![a91c1688-2321-11e7-8f04-bf91031a09dd](https://user-images.githubusercontent.com/15508766/101987998-6b8ef480-3cda-11eb-8015-16f75ee2b574.png)
 
 # Usage
 
 ```javascript
 mounted () {
   // actions binding
-  VueReactor.el.someBtn.rx().click().pipe(
+  this.$VueReactor.someBtn.rx().click().pipe(
     map(res => this.$actionType.increment()),
     bind(res => this.$action)
   )
