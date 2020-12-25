@@ -1,4 +1,4 @@
-const alias = require('rollup-plugin-alias')
+import resolve from '@rollup/plugin-node-resolve'
 const buble = require('rollup-plugin-buble')
 
 module.exports = [
@@ -35,10 +35,7 @@ module.exports = [
     },
     plugins: [
       buble(),
-      alias({
-        'rxjs/operators': 'src/umd-aliases/operators.js',
-        'rxjs': 'src/umd-aliases/rxjs.js'
-      })
+      resolve()
     ]
   },
   {
@@ -50,10 +47,7 @@ module.exports = [
     },
     plugins: [
       buble(),
-      alias({
-        'rxjs/operators': 'src/umd-aliases/operators.js',
-        'rxjs': 'src/umd-aliases/rxjs.js'
-      })
+      resolve()
     ]
   }
 ]
