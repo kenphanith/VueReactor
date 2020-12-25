@@ -5,8 +5,8 @@
 <script src="../dist/vue-reactor-operators.js"></script>
 
 <div id="app">
-  <div ref="label"></div>
   <button ref="increment">+</button>
+  <h1 ref="label">0</h1>
   <button ref="decrement">-</button>
 </div>
 
@@ -19,9 +19,19 @@
     mounted () {
       this.$VueReactor.increment.rx().click().pipe(
         map(res => this.$actionType.increment()),
-        tap(res => console.log(res)),
         bind(res => this.$action)
       ) // TO-DO: call bind method here, probably much more cleaner
+
+      this.$VueReactor.decrement.rx().click().pipe(
+        map(res => this.$actionType.decrement()),
+        bind(res => this.$action)
+      ) // TO-DO: call bind method here, probably much more cleaner
+
+      // state binding
+      this.$state.pipe(
+        map(state => state.counter),
+        bind(counter => this.$VueReactor.label.rx().text())
+      )
     },
     mutation (action, context) {
       switch (action) {
@@ -34,7 +44,20 @@
         default: return empty()
       }
     },
-    reduce (state, mutation, context) {},
+    reduce (state, mutation, context) {
+      var newState = state
+      switch (mutation) {
+        case context.$mutationType.increment:
+          newState.counter++
+          break
+        case context.$mutationType.decrement:
+          newState.counter--
+          break
+        default: break
+      }
+
+      return newState
+    },
     actionType: [
       'increment',
       'decrement'

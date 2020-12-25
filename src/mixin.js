@@ -96,6 +96,7 @@ export default {
     if (typeof mutation === 'function') {
       // TO-DO: I cannot figure out why $option cannot render the context
       // so for the time being, send the context as param
+      
       vm.$action.pipe(
         switchMap(x => mutation(x, this)), // TO-DO: handle if the return is not Observable of $mutationType
         map(x => reduce(vm.$state.getValue(), x[0], this)), // TO-DO: handle if reduce is not a function
